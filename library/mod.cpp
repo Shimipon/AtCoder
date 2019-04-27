@@ -29,3 +29,18 @@ long long moddiv(long long a, long long b){
 	long long divisor = modpow(b, mod - 2);
 	return modmul(a,divisor);
 }
+
+vector<ll> FIB(10,0);
+ll fib(ll n){
+	if(FIB[n] != 0)return FIB[n];
+	if(n == 0){
+		FIB[n] = 1;
+		return FIB[n];
+	}
+	if(n == 1){
+		FIB[n] = 2;
+		return FIB[n];
+	}
+	FIB[n] = modplus(fib(n-1), fib(n-2));
+	return FIB[n];
+}
