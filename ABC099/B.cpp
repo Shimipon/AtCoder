@@ -6,8 +6,15 @@
 using namespace std;
 
 int main(){
-	int N;
-	cin >> N;
-	if(N <= 999) printf("ABC\n", N);
-	else printf("ABD\n", N - 999);
+	int N, M;
+	cin >> N >> M;
+	vector<int> a(M), b(M);
+	for(int i=0;i<M;i++){
+		cin >> a[i] >> b[i];
+	}
+	for(int i=0;i<M;i++){
+		a[i]--;
+		b[i]--;
+	}
+	
 }

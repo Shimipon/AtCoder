@@ -4,18 +4,17 @@
 #include <cmath>
 #include <map>
 using namespace std;
-vector<int> coin = {500, 100, 50, 10, 5, 1};
 
 int main(){
-	int N;
-	cin >> N;
-	N = 1000 - N;
-	int count = 0;
-	for(int i=0;i<6;i++){
-		while(N >= coin[i]){
-			N -= coin[i];
-			count++;
-		}
+	int N, M;
+	cin >> N >> M;
+	vector<int> a(M), b(M);
+	for(int i=0;i<M;i++){
+		cin >> a[i] >> b[i];
 	}
-	cout << count << endl;
+	for(int i=0;i<M;i++){
+		a[i]--;
+		b[i]--;
+	}
+	
 }
