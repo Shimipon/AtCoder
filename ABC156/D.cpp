@@ -1,3 +1,7 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
 long long mod = 1000000000 + 7;
 
 long long modplus(long long a, long long b){
@@ -33,17 +37,26 @@ long long moddiv(long long a, long long b){
 	return modmul(a,divisor);
 }
 
-vector<ll> FIB(10,0);
-ll fib(ll n){
-	if(FIB[n] != 0)return FIB[n];
-	if(n == 0){
-		FIB[n] = 1;
-		return FIB[n];
+int main(){
+	long long n, a, b;
+	cin >> n >> a >> b;
+	long long ans = modpow(2, n);
+	long long tmpa = 1;
+	long long tmpb = 1;
+	for(long long i=0;i<a;i++){
+		tmpa = modmul(tmpa, n - i);
 	}
-	if(n == 1){
-		FIB[n] = 2;
-		return FIB[n];
+	for(long long i=0;i<a;i++){
+		tmpa = moddiv(tmpa, i + 1);
 	}
-	FIB[n] = modplus(fib(n-1), fib(n-2));
-	return FIB[n];
+	for(long long i=0;i<b;i++){
+		tmpb = modmul(tmpb, n - i);
+	}
+	for(long long i=0;i<b;i++){
+		tmpb = moddiv(tmpb, i + 1);
+	}
+	ans = modminus(ans, tmpa);
+	ans = modminus(ans, tmpb);
+	ans = modminus(ans, 1);
+	cout << ans << endl;
 }

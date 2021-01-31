@@ -1,4 +1,7 @@
-long long mod = 1000000000 + 7;
+#include <bits/stdc++.h>
+using namespace std;
+
+long long mod = 998244353;
 
 long long modplus(long long a, long long b){
 	long long ans = a + b;
@@ -33,17 +36,37 @@ long long moddiv(long long a, long long b){
 	return modmul(a,divisor);
 }
 
-vector<ll> FIB(10,0);
-ll fib(ll n){
-	if(FIB[n] != 0)return FIB[n];
-	if(n == 0){
-		FIB[n] = 1;
-		return FIB[n];
+int main(){
+	int N, K;
+	cin >> N >> K;
+	int L[K], R[K];
+	for(int i=0;i<K;i++){
+		cin >> L[i] >> R[i];
+		L[i];
+		R[i];
 	}
-	if(n == 1){
-		FIB[n] = 2;
-		return FIB[n];
+	long long dp[N];
+	long long dpsum[N+1];
+	dp[N-1] = 1;
+	dpsum[N] = 0;
+	dpsum[N-1] = 1;
+	for(int i=0;i<N-1;i++){
+		dp[i] = 0;
+		dpsum[i] = 0;
 	}
-	FIB[n] = modplus(fib(n-1), fib(n-2));
-	return FIB[n];
+	for(int i=N-2;i>=0;i--){
+		for(int j=0;j<K;j++){
+			int l = L[j] + i;
+			int r = R[j] + i + 1;
+			if(l > N-1) continue;
+			if(r > N) r = N;
+			dp[i] = modplus(dp[i], 
+				modminus(dpsum[l], dpsum[r]));
+		}
+		dpsum[i] = modplus(dp[i],dpsum[i+1]);
+	}
+	// for(int i=0;i<N;i++){
+	// 	cout << i << ":" << dp[i] << endl;
+	// }
+	cout << dp[0] << endl;
 }

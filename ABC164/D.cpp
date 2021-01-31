@@ -1,4 +1,9 @@
-long long mod = 1000000000 + 7;
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+long long mod = 2019;
 
 long long modplus(long long a, long long b){
 	long long ans = a + b;
@@ -33,17 +38,25 @@ long long moddiv(long long a, long long b){
 	return modmul(a,divisor);
 }
 
-vector<ll> FIB(10,0);
-ll fib(ll n){
-	if(FIB[n] != 0)return FIB[n];
-	if(n == 0){
-		FIB[n] = 1;
-		return FIB[n];
+int main(){
+	string S;
+	cin >> S;
+	int N = (int)S.length();
+	long long T[N+1];
+	long long CNT[2019];
+	for(int i=0;i<2019;i++){
+		CNT[i] = 0;
 	}
-	if(n == 1){
-		FIB[n] = 2;
-		return FIB[n];
+	CNT[0] = 1;
+	T[N] = 0;
+	for(int i=N-1;i>=0;i--){
+		T[i] = modplus(modmul((S[i] - '0'), modpow(10, N - i - 1)), T[i+1]);
+		CNT[T[i]]++;
 	}
-	FIB[n] = modplus(fib(n-1), fib(n-2));
-	return FIB[n];
+	long long ans = 0;
+	for(int i=0;i<2019;i++){
+		ans += CNT[i] * (CNT[i] - 1) / 2;
+		//if(CNT[i] > 0)cout << i << ":" << CNT[i] << endl;
+	}
+	cout << ans << endl;
 }

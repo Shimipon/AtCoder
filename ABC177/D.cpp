@@ -1,13 +1,17 @@
-// 一つ目が親ノードを、二つ目が深さを示す
+#include <bits/stdc++.h>
+using namespace std;
+//
 typedef pair<int, int> node;
 
-int MAX_N = 100000;
+int MAX_N = 200000;
+int SIZE[200000];
 vector<node> unionfind(MAX_N);
 
 void init(int N){
 	for(int i=0;i<N;i++){
 		unionfind[i].first = i;
 		unionfind[i].second = 0;
+		SIZE[i] = 1;
 	}
 }
 
@@ -33,8 +37,23 @@ void unite(int x, int y){
 	if(unionfind[x].second == unionfind[y].second){
 		unionfind[x].second++;
 	}
+	int tmp = SIZE[x];
+	SIZE[x] += SIZE[y];
+	SIZE[y] += tmp;
 }
 
-bool same(int x, int y){
-	return find(x) == find(y);
+int main(){
+	int N, M;
+	cin >> N >> M;
+	int A[M], B[M];
+	init(N);
+	for(int i=0;i<M;i++){
+		cin >> A[i] >> B[i];
+		unite(A[i], B[i]);
+	}
+	int ans = 0;
+	for(int i=0;i<N;i++){
+		ans = max(SIZE[i], ans);
+	}
+	cout << ans << endl;
 }
